@@ -8,8 +8,8 @@ import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
 function ParticleBackground() {
   const ref = useRef()
   const sphere = useMemo(() => {
-    const arr = new Float32Array(5001)
-    for (let i = 0; i < 5001; i++) {
+    const arr = new Float32Array(2000)
+    for (let i = 0; i < 2000; i++) {
       arr[i] = (Math.random() - 0.5) * 3
     }
     return arr

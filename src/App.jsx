@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy, Suspense } from 'react'
 import Lenis from 'lenis'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
-import Projects from './components/Projects'
-import Research from './components/Research'
-import Skills from './components/Skills'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CursorGlow from './components/CursorGlow'
+
+const Projects = lazy(() => import('./components/Projects'))
+const Research = lazy(() => import('./components/Research'))
+const Skills = lazy(() => import('./components/Skills'))
+const Contact = lazy(() => import('./components/Contact'))
 
 function App() {
   useEffect(() => {
@@ -32,10 +33,12 @@ function App() {
       <Navbar />
       <Hero />
       <About />
-      <Projects />
-      <Skills />
-      <Research />
-      <Contact />
+      <Suspense fallback={<div className="h-screen bg-[#0a0a0a]" />}>
+        <Projects />
+        <Skills />
+        <Research />
+        <Contact />
+      </Suspense>
       <Footer />
     </main>
   )

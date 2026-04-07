@@ -45,14 +45,14 @@ const Navbar = () => {
               {link.name}
             </motion.a>
           ))}
-          <motion.button 
+          <motion.a 
+            href="#contact"
             whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(0,240,255,0.4)' }}
             whileTap={{ scale: 0.95 }}
             className="rounded-full bg-neonBlue px-8 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#0a0a0a] transition-all"
           >
             Contact Me
-
-          </motion.button>
+          </motion.a>
         </div>
 
         {/* Mobile Toggle */}
@@ -81,9 +81,13 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <button className="w-full rounded-lg bg-neonBlue py-3 font-bold text-[#0a0a0a]">
+              <a 
+                href="#contact" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full rounded-lg bg-neonBlue py-3 font-bold text-[#0a0a0a] text-center"
+              >
                 Hire Me
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
