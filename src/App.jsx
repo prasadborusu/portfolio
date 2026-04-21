@@ -10,6 +10,7 @@ const Projects = lazy(() => import('./components/Projects'))
 const Research = lazy(() => import('./components/Research'))
 const Skills = lazy(() => import('./components/Skills'))
 const Contact = lazy(() => import('./components/Contact'))
+const Certificates = lazy(() => import('./components/Certificates'))
 
 function App() {
   useEffect(() => {
@@ -36,6 +37,7 @@ function App() {
       <Suspense fallback={<div className="h-screen bg-[#0a0a0a]" />}>
         <Projects />
         <Skills />
+        <Certificates />
         <Research />
         <Contact />
       </Suspense>

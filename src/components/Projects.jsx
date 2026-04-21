@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Tilt from 'react-parallax-tilt'
-import { ExternalLink, Github, X, Globe } from 'lucide-react'
+import { ExternalLink, Github, X, Globe, AlertTriangle } from 'lucide-react'
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null)
+  const [showDemoAlert, setShowDemoAlert] = useState(false)
 
   const projects = [
     {
@@ -147,7 +148,7 @@ const Projects = () => {
               className="relative w-full max-w-4xl rounded-3xl border border-white/10 bg-[#0d0d0d] overflow-hidden shadow-2xl"
             >
               <button 
-                onClick={() => setSelectedProject(null)}
+                onClick={() => { setSelectedProject(null); setShowDemoAlert(false) }}
                 className="absolute right-6 top-6 z-10 rounded-full bg-black/50 p-2 text-white/50 hover:bg-neonBlue hover:text-black transition-all"
               >
                 <X size={24} />
@@ -172,24 +173,55 @@ const Projects = () => {
                     {selectedProject.title}
                   </h3>
                   
-                  <p className="mb-10 text-gray-400 leading-relaxed text-lg">
+                  <p className="mb-6 text-gray-400 leading-relaxed text-lg">
                     {selectedProject.desc}
                   </p>
 
+                  {/* Demo Unavailable Notice */}
+                  <AnimatePresence>
+                    {showDemoAlert && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                        transition={{ duration: 0.25 }}
+                        className="mb-6 flex items-start gap-3 rounded-2xl border border-orange-500/30 bg-orange-500/8 p-4"
+                        style={{ background: 'rgba(251,146,60,0.07)', borderColor: 'rgba(251,146,60,0.35)' }}
+                      >
+                        <AlertTriangle size={16} className="mt-0.5 shrink-0" style={{ color: '#fb923c' }} />
+                        <div>
+                          <p className="font-orbitron text-[10px] font-black uppercase tracking-widest mb-1" style={{ color: '#fb923c' }}>
+                            Demo Temporarily Unavailable
+                          </p>
+                          <p className="text-xs text-gray-400 leading-relaxed">
+                            Sorry for the inconvenience! The live demo is currently down due to exceeded Netlify bandwidth credits. 
+                            It will be back up shortly. Please check the GitHub repo in the meantime.
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <a 
-                      href={selectedProject.deployLink} 
-                      target={selectedProject.deployLink === "#" ? "_self" : "_blank"} 
-                      rel="noopener noreferrer"
-                      className={`flex flex-1 items-center justify-center gap-3 rounded-2xl px-8 py-5 font-orbitron text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
-                        selectedProject.deployLink === "#" 
-                        ? "bg-white/5 text-white/30 cursor-not-allowed border border-white/5" 
-                        : "bg-neonBlue text-[#0a0a0a] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)]"
-                      }`}
-                      onClick={(e) => selectedProject.deployLink === "#" && e.preventDefault()}
+                    <button
+                      onClick={() => setShowDemoAlert(true)}
+                      className="flex flex-1 items-center justify-center gap-3 rounded-2xl px-8 py-5 font-orbitron text-[10px] font-black uppercase tracking-[0.2em] transition-all"
+                      style={{
+                        background: showDemoAlert
+                          ? 'rgba(251,146,60,0.12)'
+                          : selectedProject.deployLink === '#'
+                            ? 'rgba(255,255,255,0.05)'
+                            : 'rgba(251,146,60,0.15)',
+                        border: `1px solid ${showDemoAlert ? 'rgba(251,146,60,0.5)' : selectedProject.deployLink === '#' ? 'rgba(255,255,255,0.05)' : 'rgba(251,146,60,0.4)'}`,
+                        color: selectedProject.deployLink === '#' ? 'rgba(255,255,255,0.2)' : '#fb923c',
+                        cursor: selectedProject.deployLink === '#' ? 'not-allowed' : 'pointer',
+                        boxShadow: showDemoAlert ? '0 0 16px rgba(251,146,60,0.2)' : 'none'
+                      }}
+                      disabled={selectedProject.deployLink === '#'}
                     >
-                      <Globe size={18} /> {selectedProject.deployLink === "#" ? "Under Development" : "Live Demo"}
-                    </a>
+                      <Globe size={18} />
+                      {selectedProject.deployLink === '#' ? 'Under Development' : 'Live Demo'}
+                    </button>
                     <a 
                       href={selectedProject.githubLink} 
                       target={selectedProject.githubLink === "#" ? "_self" : "_blank"} 

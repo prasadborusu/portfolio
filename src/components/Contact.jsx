@@ -12,13 +12,13 @@ const Contact = () => {
     e.preventDefault()
     setLoading(true)
 
-    // These should ideally be set in a .env file
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    // Hardcoded credentials as requested for deployment simplification
+    const serviceId = "service_4e4r52r"
+    const templateId = "template_btfzkvw"
+    const publicKey = "L2vLtksJaHLtACFyw"
 
     if (!serviceId || !templateId || !publicKey) {
-      console.error("EmailJS credentials missing. Please check your .env file.")
+      console.error("EmailJS credentials missing.")
       setStatus('error')
       setLoading(false)
       return

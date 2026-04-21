@@ -41,6 +41,8 @@ function SkillsCube() {
     { name: 'Gen AI', color: '#8a2be2' },
     { name: 'APIs', color: '#00f0ff' },
     { name: 'Python', color: '#8a2be2' },
+    { name: 'Leadership', color: '#00f0ff' },
+    { name: 'Event Coord.', color: '#8a2be2' },
   ]
 
   return (
@@ -103,13 +105,45 @@ const Skills = () => {
             
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
               {[
-                "Vibe Coding", "Hugging Face", "Full Stack", 
-                "Gen AI", "APIs", "Neural Networks",
-                "Computer Vision", "NLP", "LLMs"
+                { name: "Vibe Coding", fire: false },
+                { name: "Hugging Face", fire: false },
+                { name: "Full Stack", fire: false },
+                { name: "Gen AI", fire: false },
+                { name: "APIs", fire: false },
+                { name: "Neural Networks", fire: false },
+                { name: "Computer Vision", fire: false },
+                { name: "NLP", fire: false },
+                { name: "LLMs", fire: false },
+                { name: "Leadership", fire: true },
+                { name: "Event Coordination", fire: true },
               ].map((item, i) => (
-                <div key={i} className="glass flex items-center justify-center p-4 text-center">
-                  <span className="text-xs font-bold uppercase tracking-widest text-gray-400 group-hover:text-neonBlue transition-colors">{item}</span>
-                </div>
+                item.fire ? (
+                  <div
+                    key={i}
+                    className="relative flex items-center justify-center gap-1.5 p-4 text-center rounded-2xl overflow-hidden cursor-default"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,60,30,0.15), rgba(255,120,0,0.08))',
+                      border: '1px solid rgba(255,80,40,0.45)',
+                      boxShadow: '0 0 14px rgba(255,60,30,0.25), inset 0 0 12px rgba(255,80,40,0.08)'
+                    }}
+                  >
+                    {/* fire shimmer */}
+                    <div className="absolute inset-0 opacity-20 pointer-events-none"
+                      style={{ background: 'radial-gradient(ellipse at 50% 120%, rgba(255,80,0,0.6), transparent 70%)' }}
+                    />
+                    <span className="text-[9px]">🔥</span>
+                    <span
+                      className="text-xs font-black uppercase tracking-widest"
+                      style={{ color: '#ff6b3d', textShadow: '0 0 10px rgba(255,80,30,0.7), 0 0 20px rgba(255,80,30,0.4)' }}
+                    >
+                      {item.name}
+                    </span>
+                  </div>
+                ) : (
+                  <div key={i} className="glass flex items-center justify-center p-4 text-center">
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400">{item.name}</span>
+                  </div>
+                )
               ))}
             </div>
           </motion.div>
